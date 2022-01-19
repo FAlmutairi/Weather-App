@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
 
     @IBOutlet weak var viewOne: UIView!
     @IBOutlet weak var viewCity: UILabel!
@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchTextField: UITextField!
     
     
-    let weatherManager = WeatherManager()
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         viewCity.layer.cornerRadius = 20
         locationButton.layer.cornerRadius = 20
         
+        weatherManager.delegate = self
         searchTextField.delegate = self
        
         
@@ -66,6 +67,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // To clear TextField after press on search button
         searchTextField.text = ""
         
+    }
+    
+    
+    func didUpdateWeather(weather: WeatherModel){
+        print(weather.temperature)
     }
     
     
