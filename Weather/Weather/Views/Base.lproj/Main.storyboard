@@ -53,12 +53,12 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ByT-78-MlA">
-                                                <rect key="frame" x="234" y="36" width="78" height="87.5"/>
+                                                <rect key="frame" x="234" y="36" width="128" height="87"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="87.5" id="6hr-E4-fZ7"/>
-                                                    <constraint firstAttribute="width" constant="78" id="LK1-ZB-VeT"/>
+                                                    <constraint firstAttribute="width" constant="128" id="LK1-ZB-VeT"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Cairo-Black" family="Cairo" pointSize="70"/>
+                                                <fontDescription key="fontDescription" name="Cairo-Black" family="Cairo" pointSize="45"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -70,7 +70,7 @@
                                             <constraint firstItem="GRV-LC-aBz" firstAttribute="leading" secondItem="wzb-Ca-8gH" secondAttribute="leading" constant="185" id="Cbg-yR-fKp"/>
                                             <constraint firstAttribute="width" constant="370" id="Co9-SA-lOp"/>
                                             <constraint firstItem="kwn-36-jnq" firstAttribute="top" secondItem="wzb-Ca-8gH" secondAttribute="top" constant="52" id="Led-Nc-N8V"/>
-                                            <constraint firstAttribute="trailing" secondItem="ByT-78-MlA" secondAttribute="trailing" constant="58" id="Sp1-lY-LT3"/>
+                                            <constraint firstAttribute="trailing" secondItem="ByT-78-MlA" secondAttribute="trailing" constant="8" id="Sp1-lY-LT3"/>
                                             <constraint firstItem="GRV-LC-aBz" firstAttribute="top" secondItem="ByT-78-MlA" secondAttribute="bottom" constant="18.5" id="TDB-kd-LUc"/>
                                             <constraint firstAttribute="trailing" secondItem="GRV-LC-aBz" secondAttribute="trailing" constant="8" id="aCu-Np-tFT"/>
                                             <constraint firstAttribute="bottom" secondItem="kwn-36-jnq" secondAttribute="bottom" constant="52" id="gyA-8t-JZz"/>
@@ -192,10 +192,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cityLabel" destination="5sd-Qp-Vv2" id="I03-D7-J88"/>
+                        <outlet property="descriptionLabel" destination="GRV-LC-aBz" id="mWF-xw-8wO"/>
                         <outlet property="locationButton" destination="iJL-Vi-tug" id="VTB-Ww-BIg"/>
                         <outlet property="searchTextField" destination="da8-U5-oWj" id="Otf-SY-0gV"/>
+                        <outlet property="temperatureLabel" destination="ByT-78-MlA" id="5VA-Kv-7aD"/>
                         <outlet property="viewCity" destination="a98-my-hUZ" id="3ft-92-ccr"/>
                         <outlet property="viewOne" destination="wzb-Ca-8gH" id="I2v-cM-2Ow"/>
+                        <outlet property="weatherImage" destination="kwn-36-jnq" id="t8h-Mu-Sxf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

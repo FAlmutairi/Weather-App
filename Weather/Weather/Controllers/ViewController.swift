@@ -13,7 +13,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     @IBOutlet weak var viewCity: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
-    
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var weatherImage: UIImageView!
     
     var weatherManager = WeatherManager()
     
@@ -70,10 +73,18 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     }
     
     
-    func didUpdateWeather(weather: WeatherModel){
-        print(weather.temperature)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel){
+        DispatchQueue.main.async {
+            self.temperatureLabel.text = weather.temperatureString
+            self.cityLabel.text = weather.cityName
+            self.weatherImage.image = UIImage(systemName: weather.conditionName)
+        }
+        
     }
     
+    func didFailWithError(error: Error) {
+        print(error)
+    }
     
 }
 

@@ -8,7 +8,8 @@
 import Foundation
 
 protocol WeatherManagerDelegate{
-    func didUpdateWeather(weather: WeatherModel)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel)
+    func didFailWithError(error: Error)
 }
 
 struct WeatherManager{
@@ -20,10 +21,10 @@ struct WeatherManager{
     func fetchWeather(cityName: String){
         let urlStrings = "\(WeatherURL)&q=\(cityName)"
         print(urlStrings)
-        performRequest(urlString: urlStrings)
+        performRequest(with: urlStrings)
     }
     
-    func performRequest(urlString: String){
+    func performRequest(with urlString: String){
         
         // 1. Create a URL
         if  let url = URL(string: urlString) {
@@ -36,14 +37,15 @@ struct WeatherManager{
                 
                 // Connot contact with server
                 if error != nil {
+                    delegate?.didFailWithError(error: error!)
                     print(error!)
                     return
                 }
                 
                 // Optional
                 if let safeData = data {
-                    if let weather = self.parseJSON(weatherData: safeData){
-                        self.delegate?.didUpdateWeather(weather: weather)
+                    if let weather = self.parseJSON(safeData){
+                        self.delegate?.didUpdateWeather(self, weather: weather)
                     }
                 }
             }
@@ -54,7 +56,7 @@ struct WeatherManager{
         
     }
     
-    func parseJSON(weatherData: Data) -> WeatherModel?{
+    func parseJSON(_ weatherData: Data) -> WeatherModel?{
         let decoder = JSONDecoder()
         
         // use DO-TRY to control error
@@ -73,7 +75,7 @@ struct WeatherManager{
             return weather
             
         } catch{
-            print(error)
+            delegate?.didFailWithError(error: error)
             return nil
         }
         
