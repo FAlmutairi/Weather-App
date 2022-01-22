@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
-
+class ViewController: UIViewController {
+    
     @IBOutlet weak var viewOne: UIView!
     @IBOutlet weak var viewCity: UILabel!
     @IBOutlet weak var locationButton: UIButton!
@@ -19,21 +20,26 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     @IBOutlet weak var weatherImage: UIImageView!
     
     var weatherManager = WeatherManager()
+    let location = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        location.delegate = self
+        location.requestWhenInUseAuthorization()
+        location.requestLocation()
         
         viewOne.layer.cornerRadius = 20
         viewCity.layer.cornerRadius = 20
         locationButton.layer.cornerRadius = 20
         
+        
         weatherManager.delegate = self
         searchTextField.delegate = self
-       
+        
         
     }
-
+    
     //
     @IBAction func searchPressed(_ sender: UIButton) {
         print(searchTextField.text!)
@@ -41,12 +47,24 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     }
     
     
+    
+    @IBAction func locationPressed(_ sender: UIButton) {
+        location.requestLocation()
+    }
+    
+}
+
+// MARK: - UITextFieldDelegate
+
+extension ViewController: UITextFieldDelegate{
+    
     // This function help us to press return button instead of search button
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print(searchTextField.text!)
         searchTextField.endEditing(true)
         return true
     }
+    
     
     //
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -66,12 +84,15 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
         if let city = searchTextField.text {
             weatherManager.fetchWeather(cityName: city)
         }
-        
         // To clear TextField after press on search button
         searchTextField.text = ""
         
     }
     
+}
+// MARK: - WeatherManagerDelegate
+
+extension ViewController: WeatherManagerDelegate {
     
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel){
         DispatchQueue.main.async {
@@ -85,6 +106,24 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     func didFailWithError(error: Error) {
         print(error)
     }
-    
 }
 
+// MARK: - CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate{
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if let loca = locations.last {
+            location.startUpdatingLocation()
+            let lat = loca.coordinate.latitude
+            let lon = loca.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+            
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
