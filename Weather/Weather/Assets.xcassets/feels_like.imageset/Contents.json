@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "brain.png",
+      "filename" : "feels_like.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "feels_like@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "feels_like@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

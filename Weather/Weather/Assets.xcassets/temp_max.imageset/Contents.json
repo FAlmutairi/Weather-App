@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "wind.png",
+      "filename" : "temp_max.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "wind@2x.png",
+      "filename" : "temp_max@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "wind@3x.png",
+      "filename" : "temp_max@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
